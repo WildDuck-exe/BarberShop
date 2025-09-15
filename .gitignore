@@ -1,0 +1,15 @@
+# NetBeans
+nbproject/
+build/
+dist/
+nbbuild/
+
+# Compiled class files
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.settings/
