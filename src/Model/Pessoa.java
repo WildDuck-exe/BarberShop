@@ -4,9 +4,11 @@
  */
 package Model;
 
+import java.lang.System.Logger.Level;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  *
@@ -43,7 +45,7 @@ abstract public class Pessoa {
             }
             this.dataNascimento = sdf.parse(dataNascimento);
         } catch (ParseException ex) {
-            System.getLogger(Pessoa.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                Logger.getLogger(Pessoa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.telefone = telefone;

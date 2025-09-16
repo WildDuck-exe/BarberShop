@@ -75,8 +75,15 @@ public class AgendaHelper implements IHelper {
     
     view.getBoxServico().setModel(comboBoxModel);
    }
-
-    public Servico obeterServico() {
+    
+    public Cliente obterCliente() {
+        
+        return (Cliente) view.getBoxCliente().getSelectedItem();
+        
+    }
+    
+    
+    public Servico obterServico() {
         
         return (Servico) view.getBoxServico().getSelectedItem();
         
@@ -88,19 +95,51 @@ public class AgendaHelper implements IHelper {
         
     }
 
-    @Override
-    public Object obterModelo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+  @Override
+    public Agendamento obterModelo() {
+        String idString = view.getTextId().getText();
+        int id = Integer.parseInt(idString);
+
+        Cliente cliente = obterCliente();
+        Servico servico = obterServico();
+
+        String valorString = view.getTextValor().getText();
+        float valor = Float.parseFloat(valorString);
+
+        String data = view.getTextData().getText();
+        String hora = view.getTextHora().getText();
+
+        // validação simples
+        if (data == null || data.isEmpty() || hora == null || hora.isEmpty()) {
+            view.exibeMensagem("Preencha data e hora!");
+            return null;
+        }
+
+        String dataHora = data + " " + hora;
+        String observacao = view.getTextObservacao().getText();
+
+        // monta objeto
+        Agendamento agendamento = new Agendamento(id, cliente, servico, valor, dataHora, observacao);
+
+        return agendamento;
     }
 
-    @Override
+
+   @Override
     public void limparTela() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        view.getTextId().setText("");
+        view.getBoxCliente().setSelectedIndex(0);
+        view.getBoxServico().setSelectedIndex(0);
+        view.getTextValor().setText("");
+        view.getTextData().setText("");
+        view.getTextHora().setText("");
+        view.getTextObservacao().setText("");
     }
+
+}
 
     
     
     
     
     
-}

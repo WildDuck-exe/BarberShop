@@ -30,7 +30,7 @@ public class LoginController {
     public void entrarNoSistema(){
         
         //pegar um usuario da View
-        Usuario usuario = helper.oberModelo();
+        Usuario usuario = helper.obterModelo();
         
         
         //pesquisar o usuario no banco
@@ -54,11 +54,4 @@ public class LoginController {
         
         
     }
-    
-    public void fizTarefa(){
-        System.out.println("Busquei algo do banco de dados");
-        
-        this.view.exibeMensagem("Executei o fiz tarefa");
-    }
-    
 }

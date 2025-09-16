@@ -13,6 +13,7 @@ import Model.DAO.ServicoDAO;
 import Model.Servico;
 import View.Agenda;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  *
@@ -63,19 +64,24 @@ public class AgendaController {
     
     public void atualizaValor(){
     
-        Servico servico = helper.obeterServico();
-        helper.setarValor(servico.getValor());
+        Servico servico = helper.obterServico(); 
+        if (servico != null) { 
+            
+            helper.setarValor(servico.getValor()); 
+        }
     
     }
     
     public void agendar(){
     
         //Buscar objeto agendamento da tela
-        
+        Agendamento agendamento = helper.obterModelo();
         //Salvar objeto no Banco de Dados
+        new AgendamentoDAO().insert(agendamento);
         
+        atualizaTabela();
         
-    
+        helper.limparTela();
     }
 }
     

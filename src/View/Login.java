@@ -6,6 +6,8 @@ package View;
 
 import Controller.LoginController;
 import Model.DAO.Banco;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -29,7 +31,7 @@ public class Login extends javax.swing.JFrame {
         try {
             Banco.inicia();
         } catch (ParseException ex) {
-            System.getLogger(Login.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

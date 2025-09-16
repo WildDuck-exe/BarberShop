@@ -7,7 +7,9 @@ package View;
 import Controller.AgendaController;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -265,6 +267,10 @@ public class Agenda extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Agenda().setVisible(true));
     }
+    
+    public void exibeMensagem(String mensagem) {
+    JOptionPane.showMessageDialog(this, mensagem);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BoxCliente;
@@ -326,6 +332,38 @@ public class Agenda extends javax.swing.JFrame {
 
     public void setTextValor(JTextField TextValor) {
         this.TextValor = TextValor;
+    }
+
+    public JTextField getTextData() {
+        return TextData;
+    }
+
+    public void setTextData(JTextField TextData) {
+        this.TextData = TextData;
+    }
+
+    public JTextField getTextHora() {
+        return TextHora;
+    }
+
+    public void setTextHora(JTextField TextHora) {
+        this.TextHora = TextHora;
+    }
+
+    public JTextField getTextId() {
+        return TextId;
+    }
+
+    public void setTextId(JTextField TextId) {
+        this.TextId = TextId;
+    }
+
+    public JTextArea getTextObservacao() {
+        return TextObservacao;
+    }
+
+    public void setTextObservacao(JTextArea TextObservacao) {
+        this.TextObservacao = TextObservacao;
     }
 
     

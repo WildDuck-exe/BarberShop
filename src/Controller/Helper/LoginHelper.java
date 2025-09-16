@@ -43,7 +43,12 @@ public class LoginHelper implements IHelper{
     }
 
     @Override
-    public Objetc obterModelo() {
-        
+    public Usuario obterModelo() {
+        String usuario = view.getTextUser().getText();
+        String senha = new String(view.getTextSenha().getPassword());
+        return new Usuario(0, senha, senha);
     }
+
+
+   
 }
