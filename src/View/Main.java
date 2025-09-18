@@ -10,38 +10,28 @@ import Model.Cliente;
 import Model.Servico;
 import Model.Usuario;
 
-
 /**
  *
- * @author iansa
+ * @author
  */
 public class Main {
- 
-    
-    
-  public static void main(String[] args){
-  
-      String nome = "ian";
-      System.out.println(nome);
-      
-      Servico barba = new Servico(1, "Barba", 20);
-      
-      System.out.println(barba.getDescricao());
-      System.out.println(barba.getValor());
-      
-      Cliente cliente = new Cliente(3, "Karen", "Avenida Dominguinho", "40414-350");
-      System.out.println(cliente);
-      
-      Usuario usuario = new Usuario(0, nome, nome);
-      
-      Agendamento agendamento = new Agendamento(1, cliente, barba, 20, "10/09/2025 19:30");
-      System.out.println(agendamento);
-      
-      
-      
-      
-      
-      
-  }
-    
+
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+    }
 }
+
+    
