@@ -29,24 +29,21 @@ public class AgendaHelper implements IHelper {
     public void preencherTabela(ArrayList<Agendamento> agendamentos) {
         DefaultTableModel tableModel = (DefaultTableModel) view.getTableAgendamentos().getModel();
         tableModel.setNumRows(0);
-
-        // Percorrer a lista preenchendo o tableModel    
+        System.out.println("Preenchendo tabela com " + agendamentos.size() + " itens");
         for (Agendamento agendamento : agendamentos) {
             tableModel.addRow(new Object[]{
                 agendamento.getId(),
-                agendamento.getCliente().getNome(),
-                agendamento.getServico().getDescricao(),
+                agendamento.getCliente() != null ? agendamento.getCliente().getNome() : "N/A",
+                agendamento.getServico() != null ? agendamento.getServico().getDescricao() : "N/A",
                 agendamento.getDataFormatada(),
                 agendamento.getHoraFormatada(),
                 agendamento.getValor(),
                 agendamento.getObservacao()
             });
         }
-
-        // Adicione essas linhas no final para notificar e atualizar a tabela
-        tableModel.fireTableDataChanged();  // Notifica o modelo de mudanças
-        view.getTableAgendamentos().revalidate();  // Revalida o layout
-        view.getTableAgendamentos().repaint();  // Repinta a tabela
+        tableModel.fireTableDataChanged();
+        view.getTableAgendamentos().revalidate();
+        view.getTableAgendamentos().repaint();
     }
 
     public void preencherClientes(ArrayList<Cliente> clientes) {

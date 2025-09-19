@@ -18,17 +18,19 @@ public class AgendamentoDAO {
      * Insere um agendamento dentro do banco de dados
      * @param agendamento exige que seja passado um objeto do tipo agendamento
      */
-   public void insert(Agendamento agendamento){
-    if(agendamento.getId() == 0){
-        agendamento.setId(proximoId());
+    public void insert(Agendamento agendamento) {
+        if (agendamento == null) {
+            throw new IllegalArgumentException("Agendamento não pode ser nulo");
+        }
+        if (agendamento.getId() == 0 || agendamento.getId() > Banco.agendamento.size()) {
+            agendamento.setId(proximoId());
+        }
         Banco.agendamento.add(agendamento);
-        System.out.println("Inserido agendamento com ID: " + agendamento.getId() + " | Total na lista: " + Banco.agendamento.size());
-    } else {
-        System.out.println("ID já definido (" + agendamento.getId() + "), não inserido como novo");
+        System.out.println("Agendamento adicionado com ID: " + agendamento.getId() + " | Tamanho da lista: " + Banco.agendamento.size());
     }
 
         
-    }
+    
     
     /**
      * Atualiza um Objeto no banco de dados

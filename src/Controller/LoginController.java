@@ -27,31 +27,23 @@ public class LoginController {
     
     
         
-    public void entrarNoSistema(){
-        
-        //pegar um usuario da View
+    public void entrarNoSistema() {
         Usuario usuario = helper.obterModelo();
-        
-        
-        //pesquisar o usuario no banco
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         Usuario usuarioAutenticado = usuarioDAO.selectPorNomeESenha(usuario);
-        
-        //Se o usuario da View tiver o mesmo usuario e senha que o usuario vindo do banco direcionar ao menu 
-        if (usuarioAutenticado != null){
-        //navegar para menu principal
-            MenuPrincipal menu = new MenuPrincipal();
-            menu.setVisible(true);
+
+        if (usuarioAutenticado != null) {
+            view.exibeMensagem("Login realizado com sucesso!");
+            System.out.println("Fechando janela de login...");
             this.view.dispose();
-        }
-        //Se não vou mostrar uma mensagem ao usuario "usuario ou senha invalido"
-        else{
+            java.awt.EventQueue.invokeLater(() -> {
+                System.out.println("Abrindo MenuPrincipal...");
+                MenuPrincipal menu = new MenuPrincipal();
+                menu.setVisible(true);
+                menu.setLocationRelativeTo(null);
+            });
+        } else {
             view.exibeMensagem("Usuario ou Senha invalido!");
         }
-        
-        
-        
-        
-        
     }
 }

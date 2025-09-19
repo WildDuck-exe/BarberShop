@@ -5,6 +5,7 @@
 package View;
 
 import Controller.MenuPrincipalController;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,10 +19,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal() {
+   public MenuPrincipal() {
         initComponents();
         this.controller = new MenuPrincipalController(this);
-        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Garante que o programa feche ao fechar o menu
     }
 
     /**

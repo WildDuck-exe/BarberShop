@@ -32,7 +32,7 @@ public class AgendaController {
     public void atualizaTabela() {
         AgendamentoDAO dao = new AgendamentoDAO();
         ArrayList<Agendamento> agendamentos = dao.selectAll();
-        System.out.println("Atualizando tabela: " + agendamentos.size() + " agendamentos totais");
+        System.out.println("Carregando " + agendamentos.size() + " agendamentos do selectAll()");
         helper.preencherTabela(agendamentos);
     }
     

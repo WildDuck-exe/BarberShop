@@ -88,7 +88,7 @@ public class Banco {
         servico.add(servico5);
         servico.add(servico6);
         
-        /* REMOVA estas linhas, pois são desnecessárias e causam erro:
+        /* Essas linhas ficaram desnecessárias e causam erro:
         agendamento.add(agendamento1);
         agendamento.add(agendamento2);
         agendamento.add(agendamento3); */
