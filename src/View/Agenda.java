@@ -45,7 +45,7 @@ public class Agenda extends javax.swing.JFrame {
         TextValor = new javax.swing.JTextField();
         BoxCliente = new javax.swing.JComboBox<>();
         BoxServico = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnAgedamento = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableAgendamentos = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -104,15 +104,15 @@ public class Agenda extends javax.swing.JFrame {
         });
         getContentPane().add(BoxServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 240, 30));
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setText("Agendar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgedamento.setBackground(new java.awt.Color(0, 102, 204));
+        btnAgedamento.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnAgedamento.setText("Agendar");
+        btnAgedamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgedamentoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 800, 240, 50));
+        getContentPane().add(btnAgedamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 800, 240, 50));
 
         TableAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -237,11 +237,11 @@ public class Agenda extends javax.swing.JFrame {
         this.controller.atualizaValor();
     }//GEN-LAST:event_BoxServicoItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgedamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgedamentoActionPerformed
         // TODO add your handling code here:
         
         this.controller.agendar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAgedamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,7 +281,7 @@ public class Agenda extends javax.swing.JFrame {
     private javax.swing.JTextField TextId;
     private javax.swing.JTextArea TextObservacao;
     private javax.swing.JTextField TextValor;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAgedamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCliente;

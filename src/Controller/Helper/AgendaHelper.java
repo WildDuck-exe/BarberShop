@@ -6,6 +6,8 @@ package Controller.Helper;
 
 import Model.Agendamento;
 import Model.Cliente;
+import Model.DAO.ClienteDAO;
+import Model.DAO.ServicoDAO;
 import Model.Servico;
 import View.Agenda;
 import java.util.ArrayList;
@@ -25,68 +27,81 @@ public class AgendaHelper implements IHelper {
     }
 
     public void preencherTabela(ArrayList<Agendamento> agendamentos) {
-       
-         DefaultTableModel tableModel = (DefaultTableModel) view.getTableAgendamentos().getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) view.getTableAgendamentos().getModel();
         tableModel.setNumRows(0);
-        
-        //Percorrer a lista preenchendo o tableModel    
+
+        // Percorrer a lista preenchendo o tableModel    
         for (Agendamento agendamento : agendamentos) {
-            
-           tableModel.addRow(new Object[]{
-           
-               agendamento.getId(),
-               agendamento.getCliente().getNome(),
-               agendamento.getServico().getDescricao(),
-               agendamento.getDataFormatada(),
-               agendamento.getHoraFormatada(),
-               agendamento.getValor(),
-               agendamento.getObservacao()
-               
-           });
-           
-            
+            tableModel.addRow(new Object[]{
+                agendamento.getId(),
+                agendamento.getCliente().getNome(),
+                agendamento.getServico().getDescricao(),
+                agendamento.getDataFormatada(),
+                agendamento.getHoraFormatada(),
+                agendamento.getValor(),
+                agendamento.getObservacao()
+            });
         }
- 
-        
-        
+
+        // Adicione essas linhas no final para notificar e atualizar a tabela
+        tableModel.fireTableDataChanged();  // Notifica o modelo de mudanças
+        view.getTableAgendamentos().revalidate();  // Revalida o layout
+        view.getTableAgendamentos().repaint();  // Repinta a tabela
     }
 
     public void preencherClientes(ArrayList<Cliente> clientes) {
-    // Cria um novo modelo para o combo
-    DefaultComboBoxModel comboBoxModel = (DefaultComboBoxModel) view.getBoxCliente().getModel();
-
-    // Adiciona os clientes no combo
-    for (Cliente cliente : clientes) {
-        comboBoxModel.addElement(cliente); // aqui vai adicionar o objeto Cliente
-    }
-
-    // Atualiza o combo da view
-    view.getBoxCliente().setModel(comboBoxModel);
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        for (Cliente cliente : clientes) {
+            comboBoxModel.addElement(cliente.getNome());  // Usa o nome como string
+        }
+        view.getBoxCliente().setModel(comboBoxModel);
     }
 
     public void preencherServico(ArrayList<Servico> servicos) {
-        
-        DefaultComboBoxModel comboBoxModel = (DefaultComboBoxModel) view.getBoxServico().getModel();
-
-    // Adiciona os clientes no combo
-    for (Servico servico : servicos) {
-        comboBoxModel.addElement(servico);
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        for (Servico servico : servicos) {
+            comboBoxModel.addElement(servico.getDescricao());  // Usa a descrição como string
+        }
+        view.getBoxServico().setModel(comboBoxModel);
     }
     
-    view.getBoxServico().setModel(comboBoxModel);
-   }
+    
+    
+    public void preencherComAgendamento(Agendamento agendamento) {
+        if (agendamento != null) {
+            view.getTextId().setText(agendamento.getId() + "");
+            view.getBoxCliente().setSelectedItem(agendamento.getCliente());
+            view.getBoxServico().setSelectedItem(agendamento.getServico());
+            view.getTextValor().setText(agendamento.getValor() + "");
+            view.getTextData().setText(agendamento.getDataFormatada());
+            view.getTextHora().setText(agendamento.getHoraFormatada());
+            view.getTextObservacao().setText(agendamento.getObservacao());
+        }
+    }
+    
     
     public Cliente obterCliente() {
-        
-        return (Cliente) view.getBoxCliente().getSelectedItem();
-        
+        String nomeSelecionado = (String) view.getBoxCliente().getSelectedItem();
+        ClienteDAO dao = new ClienteDAO();
+        ArrayList<Cliente> clientes = dao.selectAll();
+        for (Cliente cliente : clientes) {
+            if (cliente.getNome().equals(nomeSelecionado)) {
+                return cliente;
+            }
+        }
+        return null;  // Ou lance uma exceção se não encontrar
     }
-    
-    
+
     public Servico obterServico() {
-        
-        return (Servico) view.getBoxServico().getSelectedItem();
-        
+        String descricaoSelecionada = (String) view.getBoxServico().getSelectedItem();
+        ServicoDAO dao = new ServicoDAO();
+        ArrayList<Servico> servicos = dao.selectAll();
+        for (Servico servico : servicos) {
+            if (servico.getDescricao().equals(descricaoSelecionada)) {
+                return servico;
+            }
+        }
+        return null;  // Ou lance uma exceção
     }
 
     public void setarValor(float valor) {
@@ -95,21 +110,20 @@ public class AgendaHelper implements IHelper {
         
     }
 
-  @Override
+    @Override
     public Agendamento obterModelo() {
         String idString = view.getTextId().getText();
-        int id = Integer.parseInt(idString);
+        int id = idString.isEmpty() ? 0 : Integer.parseInt(idString);  // Usa 0 para novos
 
         Cliente cliente = obterCliente();
         Servico servico = obterServico();
 
         String valorString = view.getTextValor().getText();
-        float valor = Float.parseFloat(valorString);
+        float valor = valorString.isEmpty() ? 0 : Float.parseFloat(valorString);
 
         String data = view.getTextData().getText();
         String hora = view.getTextHora().getText();
 
-        // validação simples
         if (data == null || data.isEmpty() || hora == null || hora.isEmpty()) {
             view.exibeMensagem("Preencha data e hora!");
             return null;
@@ -118,16 +132,13 @@ public class AgendaHelper implements IHelper {
         String dataHora = data + " " + hora;
         String observacao = view.getTextObservacao().getText();
 
-        // monta objeto
-        Agendamento agendamento = new Agendamento(id, cliente, servico, valor, dataHora, observacao);
-
-        return agendamento;
+        return new Agendamento(id, cliente, servico, valor, dataHora, observacao);
     }
 
 
-   @Override
+    @Override
     public void limparTela() {
-        view.getTextId().setText("");
+        view.getTextId().setText("");  // Limpa ID para novo
         view.getBoxCliente().setSelectedIndex(0);
         view.getBoxServico().setSelectedIndex(0);
         view.getTextValor().setText("");

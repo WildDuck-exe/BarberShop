@@ -58,9 +58,10 @@ public class Banco {
         Servico servico5 = new Servico(5, "Sombrancelhas", 10);
         Servico servico6 = new Servico(6, "Penteados", 35);
 
-        Agendamento agendamento1 = new Agendamento(0, cliente9, servico6, 0, "28/11/2023", "14:00", "cliente vai atrasar");
-        Agendamento agendamento2 = new Agendamento(0, cliente3, servico1, 0, "28/11/2023", "14:00", "cliente vai atrasar");
-        Agendamento agendamento3 = new Agendamento(0, cliente5, servico3, 0, "28/11/2023", "14:00", "cliente vai atrasar");
+        AgendamentoDAO agDao = new AgendamentoDAO();
+        agDao.insert(new Agendamento(0, cliente9, servico6, 0, "28/11/2023", "14:00", "cliente vai atrasar"));
+        agDao.insert(new Agendamento(0, cliente3, servico1, 0, "28/11/2023", "14:00", "cliente vai atrasar"));
+        agDao.insert(new Agendamento(0, cliente5, servico3, 0, "28/11/2023", "14:00", "cliente vai atrasar"));
 
      
         //Adiciona Elementos na lista
@@ -87,9 +88,12 @@ public class Banco {
         servico.add(servico5);
         servico.add(servico6);
         
+        /* REMOVA estas linhas, pois são desnecessárias e causam erro:
         agendamento.add(agendamento1);
         agendamento.add(agendamento2);
-        agendamento.add(agendamento3);
+        agendamento.add(agendamento3); */
+        
+        
         
     }
     

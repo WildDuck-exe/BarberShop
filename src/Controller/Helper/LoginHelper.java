@@ -46,7 +46,7 @@ public class LoginHelper implements IHelper{
     public Usuario obterModelo() {
         String usuario = view.getTextUser().getText();
         String senha = new String(view.getTextSenha().getPassword());
-        return new Usuario(0, senha, senha);
+        return new Usuario(0, usuario, senha);
     }
 
 

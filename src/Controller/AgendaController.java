@@ -29,17 +29,11 @@ public class AgendaController {
         this.helper = new AgendaHelper(view);
     }
     
-    public void atualizaTabela(){
-        
-        //Buscar uma lista com os agendamento do banco de dados
-        AgendamentoDAO agendamentoDAO = new AgendamentoDAO();
-        ArrayList<Agendamento> agendamentos = agendamentoDAO.selectAll();
-        
-        //Exibir essa lista na view
+    public void atualizaTabela() {
+        AgendamentoDAO dao = new AgendamentoDAO();
+        ArrayList<Agendamento> agendamentos = dao.selectAll();
+        System.out.println("Atualizando tabela: " + agendamentos.size() + " agendamentos totais");
         helper.preencherTabela(agendamentos);
-        
-        
-        
     }
     
     public void atualizaCliente(){
@@ -72,16 +66,19 @@ public class AgendaController {
     
     }
     
-    public void agendar(){
-    
-        //Buscar objeto agendamento da tela
+    public void agendar() {
         Agendamento agendamento = helper.obterModelo();
-        //Salvar objeto no Banco de Dados
+        System.out.println("Modelo obtido: " + agendamento);
+        if (agendamento == null) {
+            view.exibeMensagem("Erro ao criar agendamento. Verifique os campos!");
+            return;
+        }
         new AgendamentoDAO().insert(agendamento);
-        
+        System.out.println("Inserido ID: " + agendamento.getId());
         atualizaTabela();
-        
+        System.out.println("Tabela atualizada chamada");
         helper.limparTela();
+        view.exibeMensagem("Agendamento criado com sucesso!");
     }
 }
     
